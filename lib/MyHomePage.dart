@@ -10,7 +10,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey[50],
         // Use the new DrawerWidget
-        drawer: DrawerWidget(),
+        drawer: SidebarScreen(),
         body: SafeArea(
           child: Column(
             children: [

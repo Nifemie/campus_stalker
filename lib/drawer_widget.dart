@@ -1,180 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 
-class DrawerWidget extends StatelessWidget {
+class SidebarScreen extends StatelessWidget {
+  const SidebarScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return Scaffold(
       backgroundColor: Colors.white,
-      child: Column(
+      body: Row(
         children: [
-          // User Profile Header
+          // Sidebar Container
           Container(
-            padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+            width: 280, // fixed width like in the screenshot
             color: Colors.white,
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/bby.png',
-                  width: 30,
-                  height: 24,
-                ),
-                SizedBox(width: 12),
-                Column(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Adeyemi Timon',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      'Student ID: 2021/CS/001',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
+                    _buildProfileSection(),
+                    const SizedBox(height: 32),
+                    _buildNavigationMenu(),
+                    const SizedBox(height: 32),
+                    _buildMyCasesSection(),
+                    const Spacer(),
+                    _buildFeedbackSection(),
                   ],
                 ),
-                Spacer(),
-                Icon(Icons.edit_outlined, size: 20, color: Colors.grey[600]),
-              ],
+              ),
             ),
           ),
 
-          // Menu Items
+          // Placeholder for main content
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              children: [
-                _buildMenuItem(Icons.dashboard_outlined, 'Dashboard'),
-                _buildMenuItem(Icons.description_outlined, 'My Reports'),
-                _buildMenuItem(Icons.school_outlined, 'Learning Hub'),
-                _buildMenuItem(Icons.people_outline, 'Peer Support'),
-                _buildMenuItem(Icons.settings_outlined, 'My Preferences'),
-
-                SizedBox(height: 20),
-
-                // MY CASES Section
-                Row(
-                  children: [
-                    Text(
-                      'MY CASES',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey[600],
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    Spacer(),
-                    Icon(Icons.info_outline, size: 16, color: Colors.grey[400]),
-                  ],
+            child: Container(
+              color: Colors.grey.shade100, // optional background color
+              child: const Center(
+                child: Text(
+                  'Main Content Goes Here',
+                  style: TextStyle(fontSize: 18),
                 ),
-
-                SizedBox(height: 10),
-
-                _buildCaseItem(Colors.green, 'Ongoing Reports'),
-                _buildCaseItem(Colors.orange, 'Matching Folders'),
-                _buildCaseItem(Colors.grey, 'Closed Cases'),
-                _buildCaseItem(Colors.grey, 'Pending Cases'),
-              ],
-            ),
-          ),
-
-          // Bottom Action
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Elliptical background
-                    Container(
-                      width: 60,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.green[50],
-                        borderRadius: BorderRadius.all(Radius.elliptical(30, 20)),
-                      ),
-                    ),
-                    // Icon container
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.green[100],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/svg/light-bulb.svg',
-                          width: 20,
-                          height: 20,
-                          colorFilter: ColorFilter.mode(
-                            Colors.green[700]!,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Have Something to Say?',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'No updates yet. Want to share\na thought or speak up\nanonymously?',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                    height: 1.3,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[600],
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Submit a Note',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -182,51 +49,238 @@ class DrawerWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.grey[600], size: 20),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
+  Widget _buildProfileSection() {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 20,
+          backgroundColor: Colors.white60,
+          child: Image.asset(
+            'assets/images/bby.png',
+            width: 32,
+            height: 32,
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 0),
-        dense: true,
-        onTap: () {
-          // Handle navigation here
-        },
-      ),
+        const SizedBox(width: 12),
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Adeyemi Timon',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 2),
+              Text(
+                'oguntimon@gmail.com',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+    Image.asset(
+    'assets/images/download.jpg',
+    width: 32,
+    height: 32,
+    ),
+      ],
     );
   }
 
-  Widget _buildCaseItem(Color color, String title) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
+  Widget _buildNavigationMenu() {
+    final menuItems = [
+      {'icon': Icons.dashboard_outlined, 'title': 'Dashboard'},
+      {'icon': Icons.description_outlined, 'title': 'My Reports'},
+      {'icon': Icons.menu_book_outlined, 'title': 'Learning Hub'},
+      {'icon': Icons.people_outline, 'title': 'Peer Support'},
+      {'icon': Icons.settings_outlined, 'title': 'My Preferences'},
+    ];
+
+    return Column(
+      children:
+      menuItems
+          .map(
+            (item) => _buildMenuItem(
+          icon: item['icon'] as IconData,
+          title: item['title'] as String,
+        ),
+      )
+          .toList(),
+    );
+  }
+
+  Widget _buildMenuItem({required IconData icon, required String title}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
       child: Row(
         children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
-          ),
-          SizedBox(width: 12),
+          Icon(icon, color: Colors.grey.shade600, size: 22),
+          const SizedBox(width: 16),
           Text(
             title,
             style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[700],
+              fontSize: 15,
+              color: Colors.grey.shade700,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
       ),
     );
   }
-}
+
+  Widget _buildMyCasesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'MY CASES',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey.shade600,
+                letterSpacing: 0.5,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(4),),
+              child: Icon(Icons.add, size: 14, color: Colors.grey.shade500),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        _buildCaseItem(
+          color: Colors.green,
+          title: 'Ongoing Reports',
+          hasMenu: true,
+        ),
+        const SizedBox(height: 16),
+        _buildCaseItem(color: Colors.orange, title: 'Matching Folders'),
+        const SizedBox(height: 16),
+        _buildCaseItem(color: Colors.grey, title: 'Closed Cases'),
+        const SizedBox(height: 16),
+        _buildCaseItem(color: Colors.blue, title: 'Pending Cases'),
+      ],
+    );
+  }
+
+  Widget _buildCaseItem({
+    required Color color,
+    required String title,
+    bool hasMenu = false,
+  }) {
+    return Row(
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey.shade700,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        if (hasMenu)
+          Icon(Icons.more_horiz, color: Colors.grey.shade500, size: 20),
+      ],
+    );
+  }
+
+  Widget _buildFeedbackSection() {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.topCenter,
+      children: [
+        // Main card
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(24, 36, 24, 24),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 24), // Space for the overlapping circle
+              const Text(
+                'Have Something to Say?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'No updates yet. Want to share a thought or speak up anonymously?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey.shade600,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 22),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue.shade600,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'Submit a Note',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Overlapping circle with icon
+        Positioned(
+          top: -30, // Negative value makes it overlap the top border
+          child: Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(
+                Icons.lightbulb,
+                color: Colors.green.shade600,
+                size: 24,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}// ⬇ Your other widget methods remain unchanged (no need to repeat them here)

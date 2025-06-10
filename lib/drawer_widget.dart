@@ -218,7 +218,7 @@ class SidebarScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 24), // Space for the overlapping circle
+              const SizedBox(height: 24),
               const Text(
                 'Have Something to Say?',
                 style: TextStyle(
@@ -263,7 +263,7 @@ class SidebarScreen extends StatelessWidget {
 
         // Overlapping circle with icon
         Positioned(
-          top: -30, // Negative value makes it overlap the top border
+          top: -30, //
           child: Container(
             width: 80,
             height: 80,
@@ -283,4 +283,4 @@ class SidebarScreen extends StatelessWidget {
       ],
     );
   }
-}// ⬇ Your other widget methods remain unchanged (no need to repeat them here)
+}

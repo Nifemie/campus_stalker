@@ -48,6 +48,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.11
+  dotted_border: ^2.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/images/
     - assets/SvgPicture/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -76,11 +78,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+     - family: RedHatDisplay
+       fonts:
+        - asset: assets/fonts/RedHatDisplay-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/RedHatDisplay-VariableFont_wght.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
